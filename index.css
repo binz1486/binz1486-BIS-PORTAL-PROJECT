@@ -1,0 +1,178 @@
+/*spinner as loading on loagin*/
+/* Modern Emerald-Blue Dot Spinner */
+.dot-spinner {
+  position: relative;
+  width: 5rem;
+  height: 5rem;
+}
+.dot-spinner__dot {
+  position: absolute;
+  left: 50%; top: 50%;
+  width: 1.1rem; height: 1.1rem;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #059669 80%, #2563eb 100%);
+  box-shadow: 0 2px 8px 0 #05966933;
+  transform: rotate(var(--angle, 0deg)) translate(0, -38px);
+  opacity: 0.2;
+  animation: dot-fade 1.2s linear infinite;
+}
+.dot-spinner__dot:nth-child(1) { --angle: 0deg;   animation-delay: 0s;    background: linear-gradient(135deg, #059669 85%, #2563eb 100%);}
+.dot-spinner__dot:nth-child(2) { --angle: 45deg;  animation-delay: 0.15s; background: linear-gradient(135deg, #059669 80%, #2563eb 100%);}
+.dot-spinner__dot:nth-child(3) { --angle: 90deg;  animation-delay: 0.3s;  background: linear-gradient(135deg, #059669 75%, #2563eb 100%);}
+.dot-spinner__dot:nth-child(4) { --angle: 135deg; animation-delay: 0.45s; background: linear-gradient(135deg, #059669 90%, #2563eb 100%);}
+.dot-spinner__dot:nth-child(5) { --angle: 180deg; animation-delay: 0.6s;  background: linear-gradient(135deg, #059669 80%, #2563eb 100%);}
+.dot-spinner__dot:nth-child(6) { --angle: 225deg; animation-delay: 0.75s; background: linear-gradient(135deg, #059669 85%, #2563eb 100%);}
+.dot-spinner__dot:nth-child(7) { --angle: 270deg; animation-delay: 0.9s;  background: linear-gradient(135deg, #059669 78%, #2563eb 100%);}
+.dot-spinner__dot:nth-child(8) { --angle: 315deg; animation-delay: 1.05s; background: linear-gradient(135deg, #059669 82%, #2563eb 100%);}
+
+@keyframes dot-fade {
+  0%, 100% { opacity: 0.2; }
+  40% { opacity: 1; }
+  60% { opacity: 0.7; }
+}
+
+/* This creates a wavy, flag-like bottom edge */
+.flag-gradient {
+  background: linear-gradient(120deg,
+    #0b3d2e 0%,     /* Very dark green */
+    #15906e 75%,    /* Medium-dark teal */
+    #19ab9a 100%    /* Deep cyan-teal */
+  );
+  background-size: 200% 100%;
+  background-position: left center;
+  transition: background-position 0.6s cubic-bezier(.4,0,.2,1);
+}
+
+.flag-gradient:hover,
+.flag-gradient:focus {
+  background-position: right center;
+}
+
+/* Animation for form */
+form {
+    transition: all 0.3s ease;
+}
+
+/* animation for quotes on left pof login */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+.animate-blink {
+  animation: blink 1s step-end infinite;
+}
+/* Loading state */
+button.loading {
+    position: relative;
+    color: transparent;
+}
+
+button.loading:after {
+    content: "";
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    border: 4px solid transparent;
+    border-top-color: #ffffff;
+    border-radius: 50%;
+    animation: button-loading-spinner 1s ease infinite;
+}
+
+@keyframes button-loading-spinner {
+    from {
+        transform: rotate(0turn);
+    }
+    to {
+        transform: rotate(1turn);
+    }
+}
+
+/* Modal transition */
+#forgotModal, #successMsg {
+    transition: opacity 0.3s;
+}
+
+/* Date picker icon */
+input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(0.5);
+    cursor: pointer;
+}
+
+/* Registration Modal Animation */
+#registerModal, #regSuccessMsg {
+    transition: opacity 0.3s ease;
+}
+
+/* Success message animation */
+@keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+.fade-out {
+    animation: fadeOut 1s ease forwards;
+}
+
+@keyframes scrollText {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+.scrolling-bar {
+    animation: scrollText 30s linear infinite;
+    white-space: nowrap;
+}
+
+@keyframes floatY {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}
+
+/* Floating animation for elements */
+.floating-animate {
+  animation: floatY 2s ease-in-out infinite;
+}
+
+.floating-animate:hover {
+  animation-play-state: paused;
+  transform: scale(1.1) translateY(-20px);
+}
+
+/* multi shages of green for main nav of dashboard*/
+.multi-green-gradient {
+  background: linear-gradient(120deg,
+  #0b3d2e 0%,     /* Very dark green */
+    #11624a 25%,    /* Deep teal-green (darker) */
+    #14795e 50%,    /* Rich teal-green */
+    #15906e 75%,    /* Medium-dark teal */
+    #169e8f 100%    /* Deep cyan-teal */
+  );
+}
+
+/* Shake animation for close buttons */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-5px); }
+  40% { transform: translateX(5px); }
+  60% { transform: translateX(-5px); }
+  80% { transform: translateX(5px); }
+}
+
+.shake {
+  animation: shake 0.5s ease-in-out;
+}
+
+/* Password strength indicator colors */
+.bg-red-500 { background-color: #ef4444; }    /* Weak */
+.bg-yellow-500 { background-color: #eab308; } /* Medium */
+.bg-blue-500 { background-color: #3b82f6; }   /* Strong */
+.bg-green-500 { background-color: #22c55e; }  /* Very Strong */
+
+/* Smooth transitions */
+#passwordStrengthBar {
+    transition: width 0.3s ease, background-color 0.3s ease;
+}
