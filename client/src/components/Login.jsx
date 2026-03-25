@@ -126,7 +126,7 @@ export default function Login({ onLoginSuccess }) {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 bg-cover bg-center backdrop-blur-sm relative" style={{ backgroundImage: `url(${bgPic})` }}>
+    <div className="min-h-screen flex flex-col items-center justify-center p-4 pt-20 bg-cover bg-center backdrop-blur-sm relative" style={{ backgroundImage: `url(${bgPic})` }}>
       {/* Admin/Applicant Icon Toggle */}
       <div className="fixed top-6 right-6 z-20">
         <button 
@@ -138,45 +138,93 @@ export default function Login({ onLoginSuccess }) {
         </button>
       </div>
 
-      {/* Top-left Nav */}
-      <div className="fixed top-6 left-6 z-20 flex flex-wrap gap-2 max-w-[95vw] animate-fadeIn">
-        <Link to="/" className="bg-white/10 hover:bg-emerald-700 text-white font-bold px-5 py-2.5 text-xs uppercase tracking-widest rounded-full shadow-lg transition-all duration-300 backdrop-blur-sm border border-white/10 hover:-translate-y-0.5">Home</Link>
-        <Link to="/eligibility" className="bg-white/10 hover:bg-emerald-700 text-white font-bold px-5 py-2.5 text-xs uppercase tracking-widest rounded-full shadow-lg transition-all duration-300 backdrop-blur-sm border border-white/10 hover:-translate-y-0.5">Eligibility</Link>
-        <Link to="/faqs" className="bg-white/10 hover:bg-emerald-700 text-white font-bold px-5 py-2.5 text-xs uppercase tracking-widest rounded-full shadow-lg transition-all duration-300 backdrop-blur-sm border border-white/10 hover:-translate-y-0.5">FAQs</Link>
-        <Link to="/about" className="bg-white/10 hover:bg-emerald-700 text-white font-bold px-5 py-2.5 text-xs uppercase tracking-widest rounded-full shadow-lg transition-all duration-300 backdrop-blur-sm border border-white/10 hover:-translate-y-0.5">About</Link>
+      {/* Top Nav */}
+      <div className="absolute top-6 left-6 flex flex-wrap gap-2 max-w-[80vw] animate-fadeIn z-10">
+        <Link to="/" className="bg-white/10 hover:bg-emerald-700 text-white font-bold px-5 py-2.5 text-xs uppercase tracking-widest rounded-full shadow-lg transition-all duration-300 backdrop-blur-sm border border-white/10 hover:-translate-y-0.5 flex items-center gap-1.5">
+          <i className="fas fa-home text-[10px]"></i> Home
+        </Link>
+        <Link to="/eligibility" className="bg-white/10 hover:bg-emerald-700 text-white font-bold px-5 py-2.5 text-xs uppercase tracking-widest rounded-full shadow-lg transition-all duration-300 backdrop-blur-sm border border-white/10 hover:-translate-y-0.5 flex items-center gap-1.5">
+          <i className="fas fa-globe text-[10px]"></i> Eligibility
+        </Link>
+        <Link to="/faqs" className="bg-white/10 hover:bg-emerald-700 text-white font-bold px-5 py-2.5 text-xs uppercase tracking-widest rounded-full shadow-lg transition-all duration-300 backdrop-blur-sm border border-white/10 hover:-translate-y-0.5 flex items-center gap-1.5">
+          <i className="fas fa-question-circle text-[10px]"></i> FAQs
+        </Link>
+        <Link to="/about" className="bg-white/10 hover:bg-emerald-700 text-white font-bold px-5 py-2.5 text-xs uppercase tracking-widest rounded-full shadow-lg transition-all duration-300 backdrop-blur-sm border border-white/10 hover:-translate-y-0.5 flex items-center gap-1.5">
+          <i className="fas fa-info-circle text-[10px]"></i> About
+        </Link>
       </div>
 
-      {/* Dynamic Quotes */}
-      <div className="hidden md:flex flex-col justify-center items-start w-1/3 pl-0 mr-10 z-10">
-        <h2 className="text-2xl font-bold text-green-800 mb-4">Welcome to Binz International Scholarship Portal</h2>
-        <div className="mt-2 text-lg font-semibold min-h-[60px] text-green-900">
-          <span>{typedQuote}</span>
-          <span className="animate-blink text-green-700">|</span>
-        </div>
-      </div>
-
-      {/* Login Block */}
-      <div className="w-full max-w-[27rem] relative md:ml-10 px-2 sm:px-0 z-10">
-        <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-          {/* Header */}
-          <div className="flag-gradient w-full py-8 px-6 text-center">
-            <img src={logo} alt="Logo" className="h-20 mx-auto mb-2 brightness-0 invert" />
-            <h1 className="text-2xl font-bold text-white">
-              {isAdminMode ? 'Admin Portal' : 'Binz Scholarship Portal'}
-            </h1>
-            <p className="text-green-100 mt-1">Access your scholarship application!</p>
+      {/* ====== UNIFIED LOGIN / REGISTER PANEL ====== */}
+      <ReusableModal
+        show={true}
+        inline={true}
+        reversed={showRegisterModal}
+        contentKey={showRegisterModal ? 'register' : 'login'}
+        leftBg={showRegisterModal ? 'bg-emerald-900' : (isAdminMode ? 'bg-slate-900' : 'flag-gradient')}
+        leftContent={
+          showRegisterModal ? (
+            <>
+              <img src={logo} alt="Logo" className="h-14 w-14 rounded-full mb-5 brightness-0 invert opacity-90" />
+              <h2 className="text-3xl font-bold leading-tight mb-3">Join BIS Portal</h2>
+              <p className="text-emerald-200 text-sm leading-relaxed mb-5">
+                Create your applicant account to access and manage your international scholarship application.
+              </p>
+              <div className="border-l-2 border-emerald-400/30 pl-4 text-emerald-100 text-xs space-y-1.5">
+                <p><i className="fas fa-check mr-1.5"></i> Free to apply</p>
+                <p><i className="fas fa-check mr-1.5"></i> Track your application</p>
+                <p><i className="fas fa-check mr-1.5"></i> Secure portal access</p>
+              </div>
+            </>
+          ) : (
+            <>
+              <img src={logo} alt="Logo" className="h-16 w-16 rounded-full mb-6 brightness-0 invert opacity-90" />
+              <h2 className="text-3xl font-bold leading-tight mb-3">
+                {isAdminMode ? 'Admin Portal' : 'Binz International Scholarship'}
+              </h2>
+              <p className="text-white/70 text-sm leading-relaxed mb-6">
+                {isAdminMode
+                  ? 'Manage applicants, review submissions, and oversee the scholarship process.'
+                  : 'Access your scholarship application and track your progress.'}
+              </p>
+              <div className="min-h-[50px] border-l-2 border-white/30 pl-4">
+                <p className="text-white/80 text-sm italic leading-relaxed">
+                  "{typedQuote}<span className="animate-blink text-white/50">|</span>"
+                </p>
+              </div>
+            </>
+          )
+        }
+        leftFooter={
+          <div className={showRegisterModal ? 'text-emerald-300' : (isAdminMode ? 'text-slate-400' : 'text-emerald-200')}>
+            <div className="flex items-center gap-2"><i className="fas fa-shield-alt"></i> 256-bit SSL Encrypted</div>
+            <div className="flex items-center gap-2 mt-2"><i className="fas fa-globe"></i> 12+ Eligible Nations</div>
+            <div className="flex items-center gap-2 mt-2"><i className="fas fa-award"></i> 1,050+ Scholarships Awarded</div>
           </div>
+        }
+        title={showRegisterModal
+          ? 'Create Account'
+          : (isAdminMode ? 'Admin Sign In' : 'Sign In')}
+        subtitle={showRegisterModal
+          ? `Step ${regStep} of 2 — ${regStep === 1 ? 'Personal Details' : 'Set Password'}`
+          : (isAdminMode ? 'Authorized personnel only' : 'Welcome back! Enter your credentials')}
+      >
 
-          {/* Form */}
-          <form className="px-6 pt-6 pb-8 space-y-4" onSubmit={handleLogin}>
-            {error && <div className="text-red-600 text-sm text-center font-semibold">{error}</div>}
+        {/* ---- LOGIN FORM ---- */}
+        {!showRegisterModal ? (
+          <form className="space-y-5 flex flex-col h-full animate-slideIn" onSubmit={handleLogin} key="login-form">
+            {error && (
+              <div className="bg-red-50 border border-red-200 rounded-lg px-4 py-2.5 flex items-center gap-2 text-sm text-red-700">
+                <i className="fas fa-exclamation-triangle"></i> {error}
+              </div>
+            )}
             
-            <div className="mb-4">
-              <label className="block text-gray-700 font-semibold mb-2 text-sm uppercase tracking-wider">
+            <div>
+              <label className="flex items-center gap-2 text-slate-600 font-semibold text-sm mb-1.5">
+                <i className={`fas ${isAdminMode ? 'fa-user-shield' : 'fa-envelope'} text-emerald-600 w-4`}></i>
                 {isAdminMode ? 'Admin Email' : 'Email Address'}
               </label>
               <input 
-                className="w-full px-4 py-3 bg-gray-50 rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none transition-all duration-300 border border-gray-200 text-gray-800 placeholder-gray-400" 
+                className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:bg-white outline-none transition-all text-slate-800 placeholder-slate-400 text-sm" 
                 type="email" 
                 placeholder={isAdminMode ? 'admin@email.com' : 'your@email.com'}
                 value={email}
@@ -185,13 +233,13 @@ export default function Login({ onLoginSuccess }) {
               />
             </div>
 
-            <div className="mb-6 relative">
-              <label className="block text-gray-700 font-semibold mb-2 text-sm uppercase tracking-wider">
-                Password
+            <div>
+              <label className="flex items-center gap-2 text-slate-600 font-semibold text-sm mb-1.5">
+                <i className="fas fa-lock text-emerald-600 w-4"></i> Password
               </label>
               <div className="relative">
                 <input 
-                  className="w-full px-4 py-3 bg-gray-50 rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none pr-12 transition-all duration-300 border border-gray-200 text-gray-800 placeholder-gray-400" 
+                  className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:bg-white outline-none pr-12 transition-all text-slate-800 placeholder-slate-400 text-sm" 
                   type={showPassword ? 'text' : 'password'}
                   placeholder="••••••••••••"
                   value={password}
@@ -200,28 +248,28 @@ export default function Login({ onLoginSuccess }) {
                 />
                 <button 
                   type="button" 
-                  className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-emerald-700 transition-colors"
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-emerald-600 transition-colors"
                   onClick={() => setShowPassword(!showPassword)}
                 >
-                  <i className={`fas ${showPassword ? 'fa-eye-slash' : 'fa-eye'} text-lg`}></i>
+                  <i className={`fas ${showPassword ? 'fa-eye-slash' : 'fa-eye'}`}></i>
                 </button>
               </div>
               
-              <div className="flex justify-between items-center mt-2">
-                <div className="flex items-center">
+              <div className="flex justify-between items-center mt-2.5">
+                <div className="flex items-center gap-2">
                   <input 
-                    type="checkbox" 
-                    className="h-4 w-4 text-green-700" 
+                    type="checkbox" id="rememberMe"
+                    className="h-4 w-4 rounded border-slate-300 text-emerald-600 focus:ring-emerald-500" 
                     checked={rememberMe}
                     onChange={(e) => setRememberMe(e.target.checked)}
                   />
-                  <label className="ml-2 text-sm text-gray-600">Remember me</label>
+                  <label htmlFor="rememberMe" className="text-sm text-slate-500 cursor-pointer">Remember me</label>
                 </div>
                 {!isAdminMode && (
                   <button 
                     type="button" 
                     onClick={() => setShowForgotModal(true)}
-                    className="text-sm text-emerald-700 hover:text-emerald-900"
+                    className="text-sm text-emerald-600 hover:text-emerald-800 font-medium transition-colors"
                   >
                     Forgot password?
                   </button>
@@ -229,25 +277,27 @@ export default function Login({ onLoginSuccess }) {
               </div>
             </div>
 
+            <div className="flex-1"></div>
+
             <button 
-              className="w-full flag-gradient hover:bg-green-800 text-white py-2 px-4 rounded transition duration-200 flex items-center justify-center gap-2"
+              className={`w-full ${isAdminMode ? 'bg-slate-900 hover:bg-slate-800' : 'flag-gradient hover:opacity-90'} text-white py-3 px-4 rounded-lg transition-all duration-300 flex items-center justify-center gap-2 font-bold shadow-md hover:-translate-y-0.5`}
               type="submit"
               disabled={loading}
             >
               {loading ? (
                 <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
               ) : (
-                <><i className="fas fa-sign-in-alt"></i> Sign In</>
+                <><i className="fas fa-sign-in-alt"></i> {isAdminMode ? 'Access Dashboard' : 'Sign In'}</>
               )}
             </button>
 
             {!isAdminMode && (
-              <div className="mt-6 text-center">
-                <p className="text-gray-600 text-sm">Don't have an account? {' '}
+              <div className="text-center">
+                <p className="text-slate-500 text-sm">Don't have an account? {' '}
                   <button 
                     type="button"
-                    onClick={() => setShowRegisterModal(true)}
-                    className="text-emerald-700 hover:text-green-900 font-medium"
+                    onClick={() => { setShowRegisterModal(true); setRegStep(1) }}
+                    className="text-emerald-600 hover:text-emerald-800 font-semibold transition-colors"
                   >
                     Register Here
                   </button>
@@ -255,8 +305,139 @@ export default function Login({ onLoginSuccess }) {
               </div>
             )}
           </form>
-        </div>
-      </div>
+        ) : (
+          /* ---- REGISTER FORM (2-step wizard) ---- */
+          <form className="space-y-5 flex flex-col h-full animate-slideIn" onSubmit={(e) => e.preventDefault()} key="register-form">
+            {regStep === 1 ? (
+              <>
+                {/* Step 1 — Name, ID, Email */}
+                <div>
+                  <label className="flex items-center gap-2 text-slate-600 font-semibold text-sm mb-1.5">
+                    <i className="fas fa-address-card text-emerald-600 w-4"></i> Full Name
+                  </label>
+                  <input
+                    className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:bg-white outline-none transition-all text-slate-800 placeholder-slate-400 text-sm"
+                    placeholder="First Middle Last Name"
+                    value={regData.fullName}
+                    onChange={(e) => setRegData({...regData, fullName: e.target.value})}
+                    required
+                  />
+                </div>
+                <div>
+                  <label className="flex items-center gap-2 text-slate-600 font-semibold text-sm mb-1.5">
+                    <i className="fas fa-passport text-emerald-600 w-4"></i> Applicant ID
+                  </label>
+                  <input
+                    className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:bg-white outline-none transition-all text-slate-800 placeholder-slate-400 text-sm"
+                    placeholder="Enter Passport Number"
+                    value={regData.applicantId}
+                    onChange={(e) => setRegData({...regData, applicantId: e.target.value})}
+                    required
+                  />
+                </div>
+                <div>
+                  <label className="flex items-center gap-2 text-slate-600 font-semibold text-sm mb-1.5">
+                    <i className="fas fa-envelope text-emerald-600 w-4"></i> Email (Username)
+                  </label>
+                  <input
+                    type="email"
+                    className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:bg-white outline-none transition-all text-slate-800 placeholder-slate-400 text-sm"
+                    placeholder="your@email.com"
+                    value={regData.regEmail}
+                    onChange={(e) => setRegData({...regData, regEmail: e.target.value})}
+                    required
+                  />
+                </div>
+                <div className="flex-1"></div>
+                <div className="flex justify-between items-center pt-2">
+                  <button type="button" onClick={() => { setShowRegisterModal(false); setRegStep(1) }} className="text-slate-500 text-sm font-semibold hover:text-slate-700 transition-colors flex items-center gap-1">
+                    <i className="fas fa-arrow-left text-xs"></i> Back to Login
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => { if (regData.fullName && regData.applicantId && regData.regEmail) setRegStep(2) }}
+                    className="bg-emerald-800 hover:bg-emerald-900 text-white px-8 py-3 rounded-lg font-bold transition-all shadow-md hover:-translate-y-0.5 flex items-center gap-2"
+                  >
+                    Next <i className="fas fa-arrow-right text-sm"></i>
+                  </button>
+                </div>
+              </>
+            ) : (
+              <>
+                {/* Step 2 — Password, Confirm, Captcha */}
+                <div>
+                  <label className="flex items-center gap-2 text-slate-600 font-semibold text-sm mb-1.5">
+                    <i className="fas fa-lock text-emerald-600 w-4"></i> Password
+                  </label>
+                  <div className="relative">
+                    <input
+                      type={showPassword ? 'text' : 'password'}
+                      className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:bg-white outline-none transition-all pr-12 text-slate-800 placeholder-slate-400 text-sm"
+                      placeholder="Create a strong password"
+                      value={regData.regPassword}
+                      onChange={(e) => { setRegData({...regData, regPassword: e.target.value}); checkPasswordStrength(e.target.value) }}
+                      required
+                    />
+                    <button type="button" className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-emerald-600 transition-colors" onClick={() => setShowPassword(!showPassword)}>
+                      <i className={`fas ${showPassword ? 'fa-eye-slash' : 'fa-eye'}`}></i>
+                    </button>
+                  </div>
+                  <div className="mt-2 flex items-center gap-2">
+                    <div className="flex-1 h-1 bg-slate-200 rounded-full overflow-hidden">
+                      <div className={`h-full transition-all duration-500 ${passwordStrength.color}`} style={{ width: passwordStrength.width }}></div>
+                    </div>
+                    <span className="text-[10px] uppercase font-bold tracking-wider text-slate-400 min-w-[60px] text-right">{passwordStrength.text}</span>
+                  </div>
+                </div>
+
+                <div>
+                  <label className="flex items-center gap-2 text-slate-600 font-semibold text-sm mb-1.5">
+                    <i className="fas fa-check-double text-emerald-600 w-4"></i> Confirm Password
+                  </label>
+                  <input
+                    type="password"
+                    className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:bg-white outline-none transition-all text-slate-800 placeholder-slate-400 text-sm"
+                    placeholder="Re-enter your password"
+                    value={regData.confirmPassword}
+                    onChange={(e) => setRegData({...regData, confirmPassword: e.target.value})}
+                    required
+                  />
+                  {regData.confirmPassword && regData.regPassword !== regData.confirmPassword && (
+                    <p className="text-red-500 text-xs mt-1.5 flex items-center gap-1"><i className="fas fa-exclamation-circle"></i> Passwords do not match</p>
+                  )}
+                </div>
+
+                {/* Captcha */}
+                <div className="bg-slate-50 border border-slate-200 rounded-lg px-4 py-3 flex items-center gap-4">
+                  <i className="fas fa-robot text-emerald-600"></i>
+                  <span className="text-slate-700 font-semibold text-sm">{captcha.n1} + {captcha.n2} =</span>
+                  <input
+                    className="w-20 px-3 py-2 bg-white border border-slate-200 rounded-md focus:ring-1 focus:ring-emerald-500 outline-none font-bold text-center text-slate-700 text-sm"
+                    type="number"
+                    value={captcha.answer}
+                    onChange={(e) => setCaptcha({...captcha, answer: e.target.value})}
+                    placeholder="?"
+                    required
+                  />
+                  <button type="button" onClick={refreshCaptcha} className="ml-auto text-slate-400 hover:text-emerald-600 hover:rotate-180 transition-all duration-500" title="Refresh">
+                    <i className="fas fa-sync-alt"></i>
+                  </button>
+                </div>
+
+                <div className="flex-1"></div>
+                <div className="flex justify-between items-center pt-2">
+                  <button type="button" onClick={() => setRegStep(1)} className="text-slate-500 text-sm font-semibold hover:text-slate-700 transition-colors flex items-center gap-1">
+                    <i className="fas fa-arrow-left text-xs"></i> Back
+                  </button>
+                  <button type="submit" className="bg-emerald-800 hover:bg-emerald-900 text-white px-8 py-3 rounded-lg font-bold transition-all shadow-md hover:-translate-y-0.5 flex items-center gap-2">
+                    <i className="fas fa-user-plus"></i> Create Account
+                  </button>
+                </div>
+              </>
+            )}
+          </form>
+        )}
+      </ReusableModal>
 
       {/* Floating Help */}
       <div className="fixed bottom-6 right-6 z-20">
@@ -330,179 +511,26 @@ export default function Login({ onLoginSuccess }) {
         </div>
       )}
 
-      {/* Register Modal — 2-Step Wizard */}
-      <ReusableModal
-        show={showRegisterModal}
-        onClose={() => { setShowRegisterModal(false); setRegStep(1) }}
-        leftBg="bg-emerald-900"
-        leftContent={
-          <>
-            <img src={logo} alt="Logo" className="h-12 w-12 rounded-full mb-6 brightness-0 invert opacity-90" />
-            <h2 className="text-2xl font-bold leading-tight mb-2">Join BIS Portal</h2>
-            <p className="text-emerald-200 text-xs leading-relaxed">
-              Create your applicant account to access and manage your scholarship application.
-            </p>
-          </>
-        }
-        leftFooter={
-          <div className="text-emerald-300">
-            <div className="flex items-center gap-2"><i className="fas fa-shield-alt"></i> Secure &amp; Encrypted</div>
-            <div className="flex items-center gap-2 mt-2"><i className="fas fa-globe"></i> 12+ Eligible Nations</div>
-            <div className="flex items-center gap-2 mt-2"><i className="fas fa-award"></i> 1,050+ Scholarships Awarded</div>
-          </div>
-        }
-        title="Create Account"
-        subtitle={`Step ${regStep} of 2 — ${regStep === 1 ? 'Personal Details' : 'Set Password'}`}
-      >
-        <form className="space-y-5" onSubmit={(e) => e.preventDefault()}>
-          {regStep === 1 ? (
-            <>
-              {/* Step 1 — Name, ID, Email */}
-              <div>
-                <label className="flex items-center gap-2 text-slate-600 font-semibold text-sm mb-1.5">
-                  <i className="fas fa-address-card text-emerald-600 w-4"></i> Full Name
-                </label>
-                <input
-                  className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:bg-white outline-none transition-all text-slate-800 placeholder-slate-400 text-sm"
-                  placeholder="First Middle Last Name"
-                  value={regData.fullName}
-                  onChange={(e) => setRegData({...regData, fullName: e.target.value})}
-                  required
-                />
-              </div>
-              <div>
-                <label className="flex items-center gap-2 text-slate-600 font-semibold text-sm mb-1.5">
-                  <i className="fas fa-passport text-emerald-600 w-4"></i> Applicant ID
-                </label>
-                <input
-                  className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:bg-white outline-none transition-all text-slate-800 placeholder-slate-400 text-sm"
-                  placeholder="Enter Passport Number"
-                  value={regData.applicantId}
-                  onChange={(e) => setRegData({...regData, applicantId: e.target.value})}
-                  required
-                />
-              </div>
-              <div>
-                <label className="flex items-center gap-2 text-slate-600 font-semibold text-sm mb-1.5">
-                  <i className="fas fa-envelope text-emerald-600 w-4"></i> Email (Username)
-                </label>
-                <input
-                  type="email"
-                  className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:bg-white outline-none transition-all text-slate-800 placeholder-slate-400 text-sm"
-                  placeholder="your@email.com"
-                  value={regData.regEmail}
-                  onChange={(e) => setRegData({...regData, regEmail: e.target.value})}
-                  required
-                />
-              </div>
-              <div className="flex justify-between items-center pt-2">
-                <button type="button" onClick={() => { setShowRegisterModal(false); setRegStep(1) }} className="text-slate-500 text-sm font-semibold hover:text-slate-700 transition-colors">
-                  Cancel
-                </button>
-                <button
-                  type="button"
-                  onClick={() => { if (regData.fullName && regData.applicantId && regData.regEmail) setRegStep(2) }}
-                  className="bg-emerald-800 hover:bg-emerald-900 text-white px-8 py-3 rounded-lg font-bold transition-all shadow-md hover:-translate-y-0.5 flex items-center gap-2"
-                >
-                  Next <i className="fas fa-arrow-right text-sm"></i>
-                </button>
-              </div>
-            </>
-          ) : (
-            <>
-              {/* Step 2 — Password, Confirm, Captcha */}
-              <div>
-                <label className="flex items-center gap-2 text-slate-600 font-semibold text-sm mb-1.5">
-                  <i className="fas fa-lock text-emerald-600 w-4"></i> Password
-                </label>
-                <div className="relative">
-                  <input
-                    type={showPassword ? 'text' : 'password'}
-                    className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:bg-white outline-none transition-all pr-12 text-slate-800 placeholder-slate-400 text-sm"
-                    placeholder="Create a strong password"
-                    value={regData.regPassword}
-                    onChange={(e) => { setRegData({...regData, regPassword: e.target.value}); checkPasswordStrength(e.target.value) }}
-                    required
-                  />
-                  <button type="button" className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-emerald-600 transition-colors" onClick={() => setShowPassword(!showPassword)}>
-                    <i className={`fas ${showPassword ? 'fa-eye-slash' : 'fa-eye'}`}></i>
-                  </button>
-                </div>
-                <div className="mt-2 flex items-center gap-2">
-                  <div className="flex-1 h-1 bg-slate-200 rounded-full overflow-hidden">
-                    <div className={`h-full transition-all duration-500 ${passwordStrength.color}`} style={{ width: passwordStrength.width }}></div>
-                  </div>
-                  <span className="text-[10px] uppercase font-bold tracking-wider text-slate-400 min-w-[60px] text-right">{passwordStrength.text}</span>
-                </div>
-              </div>
-
-              <div>
-                <label className="flex items-center gap-2 text-slate-600 font-semibold text-sm mb-1.5">
-                  <i className="fas fa-check-double text-emerald-600 w-4"></i> Confirm Password
-                </label>
-                <input
-                  type="password"
-                  className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:bg-white outline-none transition-all text-slate-800 placeholder-slate-400 text-sm"
-                  placeholder="Re-enter your password"
-                  value={regData.confirmPassword}
-                  onChange={(e) => setRegData({...regData, confirmPassword: e.target.value})}
-                  required
-                />
-                {regData.confirmPassword && regData.regPassword !== regData.confirmPassword && (
-                  <p className="text-red-500 text-xs mt-1.5 flex items-center gap-1"><i className="fas fa-exclamation-circle"></i> Passwords do not match</p>
-                )}
-              </div>
-
-              {/* Captcha */}
-              <div className="bg-slate-50 border border-slate-200 rounded-lg px-4 py-3 flex items-center gap-4">
-                <i className="fas fa-robot text-emerald-600"></i>
-                <span className="text-slate-700 font-semibold text-sm">{captcha.n1} + {captcha.n2} =</span>
-                <input
-                  className="w-20 px-3 py-2 bg-white border border-slate-200 rounded-md focus:ring-1 focus:ring-emerald-500 outline-none font-bold text-center text-slate-700 text-sm"
-                  type="number"
-                  value={captcha.answer}
-                  onChange={(e) => setCaptcha({...captcha, answer: e.target.value})}
-                  placeholder="?"
-                  required
-                />
-                <button type="button" onClick={refreshCaptcha} className="ml-auto text-slate-400 hover:text-emerald-600 hover:rotate-180 transition-all duration-500" title="Refresh">
-                  <i className="fas fa-sync-alt"></i>
-                </button>
-              </div>
-
-              <div className="flex justify-between items-center pt-2">
-                <button type="button" onClick={() => setRegStep(1)} className="text-slate-500 text-sm font-semibold hover:text-slate-700 transition-colors flex items-center gap-1">
-                  <i className="fas fa-arrow-left text-xs"></i> Back
-                </button>
-                <button type="submit" className="bg-emerald-800 hover:bg-emerald-900 text-white px-8 py-3 rounded-lg font-bold transition-all shadow-md hover:-translate-y-0.5 flex items-center gap-2">
-                  <i className="fas fa-user-plus"></i> Create Account
-                </button>
-              </div>
-            </>
-          )}
-        </form>
-      </ReusableModal>
-
       {/* Forgot Password Modal */}
       <ReusableModal
         show={showForgotModal}
         onClose={() => setShowForgotModal(false)}
-        leftBg="bg-slate-900"
+        leftBg="bg-emerald-800"
         leftContent={
           <>
             <div className="w-14 h-14 rounded-full bg-white/10 flex items-center justify-center mb-8">
               <i className="fas fa-key text-white text-2xl"></i>
             </div>
             <h2 className="text-2xl font-bold leading-tight mb-3">Account Recovery</h2>
-            <p className="text-slate-300 text-sm leading-relaxed">
+            <p className="text-emerald-200 text-sm leading-relaxed">
               Enter your registered credentials to verify your identity and reset your password.
             </p>
           </>
         }
         leftFooter={
-          <div className="text-slate-400">
-            <div className="flex items-center gap-2"><i className="fas fa-lock text-slate-300"></i> Identity Verified Securely</div>
-            <div className="flex items-center gap-2 mt-2"><i className="fas fa-headset text-slate-300"></i> Need help? Contact support</div>
+          <div className="text-emerald-300">
+            <div className="flex items-center gap-2"><i className="fas fa-lock"></i> Identity Verified Securely</div>
+            <div className="flex items-center gap-2 mt-2"><i className="fas fa-headset"></i> Need help? Contact support</div>
           </div>
         }
         title="Reset Password"
@@ -511,11 +539,11 @@ export default function Login({ onLoginSuccess }) {
         <form className="space-y-5" onSubmit={(e) => e.preventDefault()}>
           <div>
             <label className="flex items-center gap-2 text-slate-600 font-semibold text-sm mb-1.5">
-              <i className="fas fa-envelope text-slate-700 w-4"></i> Registered Email
+              <i className="fas fa-envelope text-emerald-600 w-4"></i> Registered Email
             </label>
             <input
               type="email"
-              className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-slate-400 focus:bg-white outline-none transition-all text-slate-800 placeholder-slate-400 text-sm"
+              className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:bg-white outline-none transition-all text-slate-800 placeholder-slate-400 text-sm"
               placeholder="Enter your registered email"
               required
             />
@@ -523,10 +551,10 @@ export default function Login({ onLoginSuccess }) {
 
           <div>
             <label className="flex items-center gap-2 text-slate-600 font-semibold text-sm mb-1.5">
-              <i className="fas fa-passport text-slate-700 w-4"></i> Applicant ID
+              <i className="fas fa-passport text-emerald-600 w-4"></i> Applicant ID
             </label>
             <input
-              className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-slate-400 focus:bg-white outline-none transition-all text-slate-800 placeholder-slate-400 text-sm"
+              className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:bg-white outline-none transition-all text-slate-800 placeholder-slate-400 text-sm"
               placeholder="Enter Passport Number"
               required
             />
@@ -541,7 +569,7 @@ export default function Login({ onLoginSuccess }) {
             <button type="button" onClick={() => setShowForgotModal(false)} className="text-slate-500 text-sm font-semibold hover:text-slate-700 transition-colors">
               Cancel
             </button>
-            <button type="submit" className="bg-slate-900 hover:bg-slate-800 text-white px-8 py-3 rounded-lg font-bold transition-all shadow-md hover:-translate-y-0.5 flex items-center gap-2">
+            <button type="submit" className="bg-emerald-800 hover:bg-emerald-900 text-white px-8 py-3 rounded-lg font-bold transition-all shadow-md hover:-translate-y-0.5 flex items-center gap-2">
               <i className="fas fa-paper-plane"></i> Submit Request
             </button>
           </div>
