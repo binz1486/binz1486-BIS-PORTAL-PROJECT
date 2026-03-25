@@ -102,15 +102,25 @@ export default function About() {
 
         {/* Core Values Section */}
         <section className="container mx-auto px-4 py-20">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-emerald-900 mb-4 text-center">Our Core Values</h2>
-            <div className="w-24 h-1 bg-emerald-600 mx-auto"></div>
+          <div className="text-center mb-16 animate-fadeIn">
+            <h2 className="text-4xl font-extrabold text-emerald-900 mb-4 text-center tracking-tight">
+              Our <span className="text-gradient-emerald">Core Values</span>
+            </h2>
+            <div className="w-24 h-1.5 bg-gradient-to-r from-emerald-600 to-emerald-400 mx-auto rounded-full"></div>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <ValueCard icon="fa-shield-alt" title="Integrity" desc="Adhering to the highest ethical standards in every selection." />
-            <ValueCard icon="fa-chart-line" title="Transparency" desc="Open, blockchain-secured processes for complete trust." />
-            <ValueCard icon="fa-users" title="Inclusivity" desc="Breaking barriers for students from all eligible backgrounds." />
-            <ValueCard icon="fa-lightbulb" title="Innovation" desc="Continuous improvement of our digital portal and services." />
+            <div className="animate-fadeInUp stagger-1">
+              <ValueCard icon="fa-shield-alt" title="Integrity" desc="Adhering to the highest ethical standards in every selection." />
+            </div>
+            <div className="animate-fadeInUp stagger-2">
+              <ValueCard icon="fa-chart-line" title="Transparency" desc="Open, blockchain-secured processes for complete trust." />
+            </div>
+            <div className="animate-fadeInUp stagger-3">
+              <ValueCard icon="fa-users" title="Inclusivity" desc="Breaking barriers for students from all eligible backgrounds." />
+            </div>
+            <div className="animate-fadeInUp stagger-4">
+              <ValueCard icon="fa-lightbulb" title="Innovation" desc="Continuous improvement of our digital portal and services." />
+            </div>
           </div>
         </section>
 
@@ -184,12 +194,12 @@ function StatCard({ count, label, subLabel }) {
 
 function ValueCard({ icon, title, desc }) {
   return (
-    <div className="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-2 transition duration-300">
-      <div className="w-16 h-16 bg-emerald-50 rounded-xl flex items-center justify-center mb-6">
+    <div className="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm hover-premium transition duration-300">
+      <div className="w-16 h-16 bg-emerald-50 rounded-xl flex items-center justify-center mb-6 shadow-inner">
         <i className={`fas ${icon} text-2xl text-emerald-600`}></i>
       </div>
       <h3 className="text-xl font-bold text-emerald-900 mb-3">{title}</h3>
-      <p className="text-gray-600 leading-relaxed">{desc}</p>
+      <p className="text-gray-600 leading-relaxed text-sm">{desc}</p>
     </div>
   )
 }
