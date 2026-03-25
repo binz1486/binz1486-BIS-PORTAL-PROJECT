@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BIS | About Page</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+       /* Amber/Gold gradient for navbar */
+.bg-amber-gradient {
+  background: linear-gradient(120deg,
+    #a54b07 0%,    /* Deep amber */
+    #c06804 25%,   /* Amber */
+    #d28634 50%,   /* Lighter amber/gold */
+    #d8a31d 75%,   /* Bright gold */
+    #dac368 100%   /* Soft yellow highlight */
+  );
+} 
+
+/* Animated underline for nav links */
+.animated-underline {
+  position: relative;
+  overflow: hidden;
+}
+.animated-underline::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 2px;
+  width: 100%;
+  background: linear-gradient(90deg, #4e4d4d 0%, #1b1917 100%);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s cubic-bezier(.4,0,.2,1);
+}
+.animated-underline:hover::after,
+.animated-underline:focus::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+    </style>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'white-smoke': '#f5f5f5',
+                        'snow': '#fffafa',
+                        'ivory': '#fffff0',
+                        'floral-white': '#fffaf0',
+                        'seashell': '#fff5ee'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50 font-sans">
+    <!-- Curved background layers as true background -->
+<div class="pointer-events-none fixed top-0 left-0 w-full h-[800px] -z-10">
+  <div class="absolute inset-0 bg-gray-100" style="clip-path: ellipse(80% 60% at 50% 40%);"></div>
+  <div class="absolute inset-0 bg-gray-200" style="clip-path: ellipse(70% 40% at 50% 20%);"></div>
+    <div class="absolute inset-0 bg-gray-300" style="clip-path: ellipse(70% 30% at 50% 10%);"></div>
+
+</div>
+
+    <!-- Navbar -->
+<nav class="bg-amber-gradient shadow-md py-5">
+  <div class="mx-auto max-w-6xl flex items-center justify-between gap-x-8 px-4">
+    <div class="flex items-center w-full md:w-auto justify-center md:justify-start">
+      <img src="logo.png" alt="Binz Logo" class="h-12 w-12 md:h-14 md:w-14 mr-3 rounded-full shadow filter brightness-0 invert" />
+      <h1 class="text-xl md:text-3xl font-bold text-white text-center md:text-left">
+        Binz International Scholarship Portal
+      </h1>
+    </div>
+  </div>
+</nav>
+
+    <!-- Secondary Nav -->
+<div class="bg-gray-400 py-2">
+  <div class="container mx-auto px-4">
+    <div class="flex flex-col sm:flex-row items-center justify-between gap-2 sm:gap-0">
+      <a href="index.html" class="text-gray-800 font-bold hover:text-black flex items-center w-full sm:w-auto justify-center sm:justify-start">
+        <i class="fas fa-arrow-left mr-2"></i>
+        <span class="animated-underline">Go to Home</span>
+      </a>
+      <a href="faqs.html" class="text-gray-800 font-bold hover:text-black flex items-center w-full sm:w-auto justify-center sm:justify-end">
+        <i class="fas fa-question-circle mr-2"></i>
+        <span class="animated-underline">View FAQs</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+    <!-- About Section -->
+    <div class="container mx-auto px-4 py-6 max-w-4xl relative z-10">
+        <h1 class="text-2xl font-bold text-gray-700 mb-8"><i class="fas fa-info-circle text-gray-700"></i> About BIS</h1>
+
+        <div class="space-y-4">
+            <p class="text-gray-600">
+                <b>Welcome to the Binz International Scholarship Portal (BIS)</b><br>
+                Your gateway to a world of educational opportunities. Our mission is to connect students with scholarships that can help them achieve their academic dreams. Whether you're looking for undergraduate, graduate, or specialized scholarships, BIS is here to assist you every step of the way. At BIS, we believe that education is the key to unlocking potential and transforming lives. Our mission is to break down barriers and ensure that deserving students, regardless of their background, have access to quality education and financial support. We are committed to maintaining a fair and transparent selection process, providing up-to-date information, and supporting applicants at every step.<br>
+                Founded by <b>Mr. Binyameen</b>, whose passion for education and equal opportunity inspired the creation of BIS, our portal stands as a testament to the power of vision and dedication. We invite you to explore our resources, apply for scholarships, and join a community that values learning, growth, and success.<br>
+                <b>Our Vision</b><br>
+                To be a leading platform that empowers students worldwide by providing access to scholarships and educational resources, fostering a culture of learning and achievement. We envision a world where opportunities are equal, and everyone has the opportunity to realize their potential.<br>
+                <b>Our Mission</b><br>
+                To connect students with scholarships that can help them achieve their academic dreams. We strive to provide a user-friendly platform that simplifies the scholarship application process, ensuring transparency and fairness in selection. Our goal is to support students in their educational journey, helping them overcome financial barriers and succeed in their studies.<br>
+                 <i>"Scholarship is key to unlocking your potential and act as your global Passport to success"</i>
+            </p>
+    <!-- Founder of BIS Box: same dimensions as Our Progress box -->
+<div class="bg-gradient-to-r from-emerald-50 via-white to-amber-50 rounded-lg shadow flex flex-col md:flex-row items-center p-6 mb-10">
+  <img src="binz-pic.jpg" alt="Founder" class="w-36 h-36 object-cover rounded-full mb-4 md:mb-0 md:mr-6 shadow border-2 border-emerald-300">
+  <div class="flex-1">
+    <h3 class="text-xl font-bold text-emerald-700 mb-2 flex items-center gap-2">
+      <i class="fas fa-user-tie"></i> Founder of BIS
+    </h3>
+    <p class="text-gray-700">
+      Mr. Binyameen is the visionary founder of the Binz International Scholarship Portal (BIS). With a passion for education and equal opportunity, he established BIS to help students worldwide achieve their academic dreams through accessible scholarships and transparent processes.
+    </p>
+  </div>
+</div>
+<!-- one quote in about section -->
+<div class="bg-gradient-to-r from-amber-50 via-white to-emerald-50 border-l-4 border-amber-400 rounded-lg shadow flex flex-col md:flex-row items-center p-6 mb-10">
+<p class="italic text-gray-700 flex items-center gap-2">
+      <i class="fas fa-quote-left text-amber-500"></i>
+      The superiority of a scholar over a worshipper is like the moon over all other stars.
+      <span class="font-bold text-gray-600">- Prophet Muhammad (PBUH)</span>
+    </p></div>
+
+<!-- Stats & Progress Section -->
+ <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+    <div class="bg-white/80 backdrop-blur rounded-2xl shadow p-6 flex flex-col items-center border-t-4 border-emerald-400">
+      <i class="fas fa-user-graduate text-4xl text-emerald-700 mb-2"></i>
+      <div class="text-3xl font-bold text-emerald-700 counter" data-target="31040">0</div>
+      <div class="text-gray-600 mt-1">Students Applied</div>
+    </div>
+    <div class="bg-white/80 backdrop-blur rounded-2xl shadow p-6 flex flex-col items-center border-t-4 border-amber-400">
+      <i class="fas fa-eye text-4xl text-amber-600 mb-2"></i>
+      <div class="text-3xl font-bold text-amber-600 counter" data-target="125000">0</div>
+      <div class="text-gray-600 mt-1">Website Visits</div>
+    </div>
+    <div class="bg-white/80 backdrop-blur rounded-2xl shadow p-6 flex flex-col items-center border-t-4 border-blue-400">
+      <i class="fas fa-award text-4xl text-blue-600 mb-2"></i>
+      <div class="text-3xl font-bold text-blue-600 counter" data-target="1050">0</div>
+      <div class="text-gray-600 mt-1">Scholarships Awarded</div>
+    </div>
+  </div>
+
+<!-- Simple Bar Chart (CSS only) -->
+<div class="bg-white/80 backdrop-blur rounded-lg shadow p-6 mb-10 border-t-4 border-green-500">
+  <h3 class="text-lg font-bold mb-4 text-gray-700 flex items-center gap-2">
+    <i class="fas fa-chart-bar text-emerald-700"></i> Our Progress (Year-2025)
+  </h3>
+  <div class="space-y-4">
+    <div>
+      <div class="flex justify-between mb-1">
+        <span class="text-gray-700">Applications</span>
+        <span class="text-gray-700 font-bold">31,040</span>
+      </div>
+      <div class="w-full bg-gray-200 rounded-full h-4">
+        <div class="bg-emerald-700 h-4 rounded-full" style="width: 80%"></div>
+      </div>
+    </div>
+    <div>
+      <div class="flex justify-between mb-1">
+        <span class="text-gray-700">Visits</span>
+        <span class="text-gray-700 font-bold">125,000</span>
+      </div>
+      <div class="w-full bg-gray-200 rounded-full h-4">
+        <div class="bg-amber-500 h-4 rounded-full" style="width: 95%"></div>
+      </div>
+    </div>
+    <div>
+      <div class="flex justify-between mb-1">
+        <span class="text-gray-700">Awards</span>
+        <span class="text-gray-700 font-bold">1,050</span>
+      </div>
+      <div class="w-full bg-gray-200 rounded-full h-4">
+        <div class="bg-blue-600 h-4 rounded-full" style="width: 60%"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+        </div>
+    </div>
+
+<!-- Newsletter Subscription Section -->
+<div class="container mx-auto max-w-4xl mb-8 px-4">
+  <div class="bg-white rounded-lg shadow p-6 flex flex-col md:flex-row items-center gap-4">
+    <div class="flex-1 mb-4 md:mb-0">
+      <h3 class="text-xl font-bold text-emerald-700 mb-1 flex items-center gap-2">
+        <i class="fas fa-envelope-open-text"></i> Subscribe to our Newsletter
+      </h3>
+      <p class="text-gray-600 text-sm">Get the latest scholarship updates, news, and tips delivered to your inbox as soon as possible !</p>
+    </div>
+    <form class="flex flex-col w-full md:w-96 gap-2" onsubmit="event.preventDefault(); alert('Thank you for subscribing!');">
+      <input type="text" minlength="3" required placeholder="Enter your name" class="border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-500" />
+      <input type="email" required placeholder="Your email address" class="border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-500" />
+      <button type="submit" class="bg-emerald-700 text-white px-4 py-2 rounded hover:bg-emerald-800 transition font-semibold w-full">
+        Subscribe
+      </button>
+    </form>
+  </div>
+</div>
+
+    <!-- Scroll to Top Button -->
+    <button id="scrollToTop" class="fixed bottom-8 right-8 bg-amber-600 text-white p-3 w-12 h-12 rounded-full shadow-lg opacity-0 invisible transition-all duration-300 hover:bg-amber-700">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white p-4 mt-8">
+        <div class="container mx-auto text-center">
+          <b><i class="fas fa-envelope text-white-600"></i> Email:</b> <a href="mailto:binzeria@gmail.com" class="hover:text-blue-600">binzeria@gmail.com</a>
+          <b>| <i class="fas fa-phone text-white-600 "></i> Call:</b> <a href="tel:+923446072989"
+           class="hover:text-blue-600"> +92-344-6072989</a>
+          <b>| <i class="fas fa-phone-alt"></i> Landline:</b> <a href="tel:9238-476937" class="hover:text-blue-600"> 9238-476937</a><br><br>
+            <p><b>©</b> 2023 Binz International Scholarship Portal. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+
+            // Scroll to top button
+            const scrollToTopBtn = document.getElementById('scrollToTop');
+            
+            window.addEventListener('scroll', () => {
+                if (window.pageYOffset > 300) {
+                    scrollToTopBtn.classList.remove('opacity-0', 'invisible');
+                    scrollToTopBtn.classList.add('opacity-100', 'visible');
+                } else {
+                    scrollToTopBtn.classList.add('opacity-0', 'invisible');
+                    scrollToTopBtn.classList.remove('opacity-100', 'visible');
+                }
+            });
+            
+            scrollToTopBtn.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+
+            document.querySelectorAll('.counter').forEach(counter => {
+  const updateCount = () => {
+    const target = +counter.getAttribute('data-target');
+    const count = +counter.innerText;
+    const increment = Math.ceil(target / 100);
+
+    if(count < target) {
+      counter.innerText = count + increment;
+      setTimeout(updateCount, 20);
+    } else {
+      counter.innerText = target.toLocaleString();
+    }
+  };
+  updateCount();
+});
+
+// Scroll to main nav on page load/refresh
+window.addEventListener('DOMContentLoaded', function() {
+  const nav = document.querySelector('nav');
+  if (nav) {
+    nav.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+});
+
+       // Disable right-click
+document.addEventListener('contextmenu', function(e) {
+  e.preventDefault();
+});
+// Disable F12, Ctrl+Shift+I, Ctrl+U
+document.addEventListener('keydown', function(e) {
+    // Disable Ctrl+U
+  if (e.ctrlKey && e.key.toLowerCase() === 'u') {
+    e.preventDefault();
+    return false;
+  }
+  // Disable F12
+  if (e.key === "F12") {
+    e.preventDefault();
+    return false;
+  }
+  // Disable Ctrl+Shift+I
+  if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'i') {
+    e.preventDefault();
+    return false;
+  }
+});
+    </script>
+</body>
+</html>

@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BIS | Check Eligibility</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+       /* Amber/Gold gradient for navbar */
+.bg-amber-gradient {
+  background: linear-gradient(120deg,
+    #a54b07 0%,    /* Deep amber */
+    #c06804 25%,   /* Amber */
+    #d28634 50%,   /* Lighter amber/gold */
+    #d8a31d 75%,   /* Bright gold */
+    #dac368 100%   /* Soft yellow highlight */
+  );
+} 
+
+/* Animated underline for nav links */
+.animated-underline {
+  position: relative;
+  overflow: hidden;
+}
+.animated-underline::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 2px;
+  width: 100%;
+  background: linear-gradient(90deg, #4e4d4d 0%, #1b1917 100%);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s cubic-bezier(.4,0,.2,1);
+}
+.animated-underline:hover::after,
+.animated-underline:focus::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+    </style>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'white-smoke': '#f5f5f5',
+                        'snow': '#fffafa',
+                        'ivory': '#fffff0',
+                        'floral-white': '#fffaf0',
+                        'seashell': '#fff5ee'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50 font-sans">
+    <!-- Curved background layers as true background -->
+<div class="pointer-events-none fixed top-0 left-0 w-full h-[800px] -z-10">
+  <div class="absolute inset-0 bg-gray-100" style="clip-path: ellipse(80% 60% at 50% 40%);"></div>
+  <div class="absolute inset-0 bg-gray-200" style="clip-path: ellipse(70% 40% at 50% 20%);"></div>
+    <div class="absolute inset-0 bg-gray-300" style="clip-path: ellipse(70% 30% at 50% 10%);"></div>
+
+</div>
+
+    <!-- Navbar -->
+<nav class="bg-amber-gradient shadow-md py-5">
+  <div class="mx-auto max-w-6xl flex items-center justify-between gap-x-8 px-4">
+    <div class="flex items-center">
+      <img src="logo.png" alt="Binz Logo" class="h-12 w-12 md:h-14 md:w-14 mr-3 rounded-full shadow filter brightness-0 invert" />
+      <h1 class="text-xl md:text-3xl font-bold text-white text-center md:text-left">
+        Binz International Scholarship Portal
+      </h1>
+    </div>
+  </div>
+</nav>
+
+    <!-- Secondary Nav -->
+<div class="bg-gray-400 py-2">
+  <div class="container mx-auto px-4">
+    <div class="flex flex-col sm:flex-row items-center justify-between gap-2 sm:gap-0">
+      <a href="index.html" class="text-gray-800 font-bold hover:text-black flex items-center w-full sm:w-auto justify-center sm:justify-start">
+        <i class="fas fa-arrow-left mr-2"></i>
+        <span class="animated-underline">Go to Home</span>
+      </a>
+      <a href="faqs.html" class="text-gray-800 font-bold hover:text-black flex items-center w-full sm:w-auto justify-center sm:justify-end">
+        <i class="fas fa-question-circle mr-2"></i>
+        <span class="animated-underline">View FAQs</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+    <!-- About Section -->
+    <div class="container mx-auto px-4 py-6 max-w-4xl relative z-10">
+        <h1 class="text-2xl font-bold text-gray-700 mb-3"><i class="fas fa-user-check"></i> Check Your Eligibility</h1>
+
+       <!-- World Map Section (after navbar) -->
+<div class="container mx-auto max-w-6xl px-4 mt-0 mb-6">
+  <div class="bg-white/80 backdrop-blur rounded-lg shadow p-4 flex flex-col items-center border border-emerald-200">
+    <h2 class="text-xl font-bold text-emerald-700 mb-4 flex items-center gap-2">
+      <i class="fas fa-globe-asia"></i> Our Global Reach
+    </h2>
+    <!-- SVG World Map (responsive, royalty-free) -->
+<!-- Map Zoom Controls and Image -->
+<div class="relative w-full flex flex-col items-center">
+  <!-- Map Container -->
+  <div id="mapContainer"
+    class="overflow-x-auto overflow-y-hidden rounded w-full max-w-[700px] h-[160px] sm:h-[400px] bg-gray-50 flex items-center justify-center"
+    style="background: #f8fafc;">
+    <img id="mapImage" src="map.svg"
+      alt="World Map"
+      class="rounded object-contain transition-transform duration-300 block mx-auto max-h-[200px] sm:max-h-[380px] w-full"
+      style="height: auto;"
+      loading="lazy">
+    <!-- Zoom Buttons: Desktop (top-left) -->
+    <div class="hidden sm:flex absolute top-2 left-2 z-20 flex-col gap-2">
+      <button id="zoomIn" type="button" class="bg-emerald-700 text-white rounded-full w-7 h-7 flex items-center justify-center shadow hover:bg-emerald-800 transition text-lg font-bold font-sans leading-none">+</button>
+      <button id="zoomOut" type="button" class="bg-emerald-700 text-white rounded-full w-7 h-7 flex items-center justify-center shadow hover:bg-emerald-800 transition text-lg font-bold font-sans leading-none">&ndash;</button>
+    </div>
+  </div>
+  <!-- Zoom Buttons: Mobile (below map) -->
+  <div class="flex sm:hidden flex-row gap-4 mt-3">
+    <button id="zoomInMobile" type="button" class="bg-emerald-700 text-white rounded-full w-8 h-8 flex items-center justify-center shadow hover:bg-emerald-800 transition text-lg font-bold font-sans leading-none">+</button>
+    <button id="zoomOutMobile" type="button" class="bg-emerald-700 text-white rounded-full w-8 h-8 flex items-center justify-center shadow hover:bg-emerald-800 transition text-lg font-bold font-sans leading-none">&ndash;</button>
+  </div>
+</div>
+  </div>
+</div>
+
+<!-- Eligibility Check Box -->
+<div class="container mx-auto max-w-4xl px-4 mb-1">
+  <div class="bg-white rounded-2xl shadow-lg p-8 flex flex-col gap-6 border border-emerald-200">
+    <h2 class="text-2xl font-bold text-emerald-700 mb-2 flex items-center gap-2">
+      <i class="fas fa-user-check"></i> Check Your Eligibility
+    </h2>
+    <form id="eligibilityForm" class="space-y-4">
+      <div>
+        <label class="block text-gray-700 font-semibold mb-1" for="name">Your Name</label>
+        <input type="text" id="name" required placeholder="Enter your name" minlength="3" maxlength="20"
+          class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition" />
+      </div>
+      <div>
+        <label class="block text-gray-700 font-semibold mb-1" for="country">Your Country</label>
+        <select id="country" required
+          class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition">
+          <option value="">Select your country</option>
+          <!-- Country options will be populated by JS -->
+        </select>
+      </div>
+      <div>
+        <label class="block text-gray-700 font-semibold mb-1" for="education">Educational Level</label>
+        <select id="education" required
+          class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition">
+          <option value="">Select level</option>
+          <option value="intermediate">Intermediate</option>
+          <option value="bachelor">Bachelor</option>
+          <option value="master">Master</option>
+          <option value="phd">PhD</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-gray-700 font-semibold mb-1" for="percentage">Percentage in Last Degree</label>
+        <input type="number" id="percentage" min="0" max="100" required placeholder="e.g. 85"
+          class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition" />
+      </div>
+      <div>
+        <label class="block text-gray-700 font-semibold mb-1" for="age">Age</label>
+        <input type="number" id="age" min="15" max="30" required placeholder="Enter your age"
+          class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition" />
+      </div>
+      <button type="submit"
+        class="w-full bg-emerald-700 hover:bg-emerald-800 text-white font-bold py-3 rounded-lg text-lg shadow transition">
+        <i class="fas fa-search mr-2"></i>Check Eligibility
+      </button>
+    </form>
+    <div id="eligibilityResult" class="mt-2 text-center text-lg font-semibold"></div>
+  </div>
+</div>
+
+<script>
+// Populate country dropdown with all countries
+const countries = [
+  "Afghanistan","Albania","Algeria","Andorra","Angola","Antigua and Barbuda","Argentina","Armenia","Australia","Austria",
+  "Azerbaijan","Bahamas","Bahrain","Bangladesh","Barbados","Belarus","Belgium","Belize","Benin","Bhutan","Bolivia",
+  "Bosnia and Herzegovina","Botswana","Brazil","Brunei","Bulgaria","Burkina Faso","Burundi","Cabo Verde","Cambodia",
+  "Cameroon","Canada","Central African Republic","Chad","Chile","China","Colombia","Comoros","Congo (Congo-Brazzaville)",
+  "Costa Rica","Croatia","Cuba","Cyprus","Czechia","Democratic Republic of the Congo","Denmark","Djibouti","Dominica",
+  "Dominican Republic","Ecuador","Egypt","El Salvador","Equatorial Guinea","Eritrea","Estonia","Eswatini","Ethiopia",
+  "Fiji","Finland","France","Gabon","Gambia","Georgia","Germany","Ghana","Greece","Grenada","Guatemala","Guinea",
+  "Guinea-Bissau","Guyana","Haiti","Honduras","Hungary","Iceland","India","Indonesia","Iran","Iraq","Ireland",
+  "Italy","Jamaica","Japan","Jordan","Kazakhstan","Kenya","Kiribati","Kuwait","Kyrgyzstan","Laos","Latvia","Lebanon",
+  "Lesotho","Liberia","Libya","Liechtenstein","Lithuania","Luxembourg","Madagascar","Malawi","Malaysia","Maldives",
+  "Mali","Malta","Marshall Islands","Mauritania","Mauritius","Mexico","Micronesia","Moldova","Monaco","Mongolia",
+  "Montenegro","Morocco","Mozambique","Myanmar (Burma)","Namibia","Nauru","Nepal","Netherlands","New Zealand",
+  "Nicaragua","Niger","Nigeria","North Korea","North Macedonia","Norway","Oman","Pakistan","Palau","Palestine State",
+  "Panama","Papua New Guinea","Paraguay","Peru","Philippines","Poland","Portugal","Qatar","Romania","Russia","Rwanda",
+  "Saint Kitts and Nevis","Saint Lucia","Saint Vincent and the Grenadines","Samoa","San Marino","Sao Tome and Principe",
+  "Saudi Arabia","Senegal","Serbia","Seychelles","Sierra Leone","Singapore","Slovakia","Slovenia","Solomon Islands",
+  "Somalia","South Africa","South Korea","South Sudan","Spain","Sri Lanka","Sudan","Suriname","Sweden","Switzerland",
+  "Syria","Tajikistan","Tanzania","Thailand","Timor-Leste","Togo","Tonga","Trinidad and Tobago","Tunisia","Turkey",
+  "Turkmenistan","Tuvalu","Uganda","Ukraine","United Arab Emirates","United Kingdom","United States","Uruguay",
+  "Uzbekistan","Vanuatu","Vatican City","Venezuela","Vietnam","Yemen","Zambia","Zimbabwe"
+];
+const countrySelect = document.getElementById('country');
+countries.forEach(c => {
+  const opt = document.createElement('option');
+  opt.value = c;
+  opt.textContent = c;
+  countrySelect.appendChild(opt);
+});
+
+// Eligibility logic as per your requirements
+document.getElementById('eligibilityForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const name = document.getElementById('name').value.trim();
+  const country = document.getElementById('country').value;
+  const education = document.getElementById('education').value;
+  const percentage = parseFloat(document.getElementById('percentage').value);
+  const age = parseInt(document.getElementById('age').value, 10);
+
+  const resultBox = document.getElementById('eligibilityResult');
+  // Show loading spinner
+  resultBox.innerHTML = `
+    <div class="flex flex-col items-center justify-center py-6">
+      <i class="fas fa-spinner fa-spin text-4xl text-emerald-700 mb-2"></i>
+      <span class="text-emerald-700 font-semibold">Checking eligibility...</span>
+    </div>
+  `;
+  resultBox.style.display = 'block';
+
+  // Wait 2 seconds, then show the actual result
+  setTimeout(() => {
+    // Only eligible countries
+    const allowedCountries = [
+      "Pakistan","Palestine","China","Iran","Turkey","Afghanistan","Bangladesh","Sirilanka","Oman","Spain","Egypt","Panama","Palestine State","Sri Lanka"
+    ];
+
+    let eligible = false;
+    let message = "";
+
+    if (!allowedCountries.includes(country)) {
+      eligible = false;
+      message = "You are not eligible: Only applicants from selected countries are eligible.";
+    } else if (education === "intermediate") {
+      if (percentage >= 70 && age <= 23) {
+        eligible = true;
+        message = "Congratulations! You are eligible for the scholarship.";
+      } else {
+        eligible = false;
+        message = "You are not eligible: For Intermediate, percentage must be ≥ 70 and age ≤ 23.";
+      }
+    } else if (education === "bachelor") {
+      if (percentage >= 75 && age <= 26) {
+        eligible = true;
+        message = "Congratulations! You are eligible for the scholarship.";
+      } else {
+        eligible = false;
+        message = "You are not eligible: For Bachelor, percentage must be ≥ 75 and age ≤ 26.";
+      }
+    } else if (education === "master") {
+      if (percentage >= 80 && age <= 28) {
+        eligible = true;
+        message = "Congratulations! You are eligible for the scholarship.";
+      } else {
+        eligible = false;
+        message = "You are not eligible: For Master, percentage must be ≥ 80 and age ≤ 28.";
+      }
+    } else if (education === "phd") {
+      eligible = false;
+      message = "You are not eligible: Applicants with PhD as last education are not eligible.";
+    } else {
+      eligible = false;
+      message = "Please select your education level.";
+    }
+
+    if (eligible) {
+      resultBox.innerHTML = `
+        <div class="border-2 border-green-500 text-green-700 bg-green-50 rounded-lg px-4 py-3 font-semibold transition flex flex-col items-center">
+          <i class="fas fa-check-circle text-3xl text-green-500 mb-2"></i>
+          Congratulations ${name ? name : ''}! You are eligible for the scholarship.
+          <div class="mt-4 flex gap-4">
+            <button id="applyBtn" class="px-4 py-2 border border-emerald-700 text-emerald-700 rounded hover:bg-emerald-700 hover:text-white transition font-bold">Apply</button>
+            <button id="backBtn" class="px-4 py-2 border border-gray-400 text-gray-700 rounded hover:bg-gray-200 transition font-bold">Back</button>
+          </div>
+        </div>
+      `;
+      resultBox.style.display = 'block';
+
+      // Apply button
+      document.getElementById('applyBtn').onclick = function() {
+        window.location.href = "index.html";
+      };
+      // Back button
+      document.getElementById('backBtn').onclick = function() {
+        resultBox.style.display = 'none';
+        resultBox.innerHTML = '';
+        document.getElementById('eligibilityForm').reset();
+        const nav = document.querySelector('nav');
+        if (nav) {
+          nav.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        } else {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+      };
+    } else {
+      resultBox.innerHTML = `<div class="border-2 border-red-500 text-red-700 bg-red-50 rounded-lg px-4 py-3 font-semibold transition">${message}</div>`;
+      resultBox.style.display = 'block';
+      setTimeout(() => {
+        resultBox.style.display = 'none';
+        resultBox.innerHTML = '';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }, 5000);
+    }
+
+    // Scroll slightly down toward the bottom after clicking check
+    setTimeout(() => {
+      window.scrollBy({ top: 250, left: 0, behavior: 'smooth' });
+    }, 100);
+  }, 2000); // 2 seconds loading
+});
+
+// Scroll to main nav on page load/refresh
+window.addEventListener('DOMContentLoaded', function() {
+  const nav = document.querySelector('nav');
+  if (nav) {
+    nav.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+});
+</script>
+    </div>
+
+    <!-- Scroll to Top Button -->
+    <button id="scrollToTop" class="fixed bottom-8 right-8 bg-amber-600 text-white p-3 w-12 h-12 rounded-full shadow-lg opacity-0 invisible transition-all duration-300 hover:bg-amber-700">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white p-4 mt-8">
+        <div class="container mx-auto text-center">
+          <b><i class="fas fa-envelope text-white-600"></i> Email:</b> <a href="mailto:binzeria@gmail.com" class="hover:text-blue-600">binzeria@gmail.com</a>
+          <b>| <i class="fas fa-phone text-white-600 "></i> Call:</b> <a href="tel:+923446072989"
+           class="hover:text-blue-600"> +92-344-6072989</a>
+          <b>| <i class="fas fa-phone-alt"></i> Landline:</b> <a href="tel:9238-476937" class="hover:text-blue-600"> 9238-476937</a><br><br>
+            <p><b>©</b> 2023 Binz International Scholarship Portal. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+
+            // Scroll to top button
+            const scrollToTopBtn = document.getElementById('scrollToTop');
+            
+            window.addEventListener('scroll', () => {
+                if (window.pageYOffset > 300) {
+                    scrollToTopBtn.classList.remove('opacity-0', 'invisible');
+                    scrollToTopBtn.classList.add('opacity-100', 'visible');
+                } else {
+                    scrollToTopBtn.classList.add('opacity-0', 'invisible');
+                    scrollToTopBtn.classList.remove('opacity-100', 'visible');
+                }
+            });
+            
+            scrollToTopBtn.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+// Map zoom functionality
+      let mapScale = 1;
+const mapImg = document.getElementById('mapImage');
+document.getElementById('zoomIn').onclick = function() {
+  mapScale = Math.min(mapScale + 0.2, 3);
+  mapImg.style.transform = `scale(${mapScale})`;
+};
+document.getElementById('zoomOut').onclick = function() {
+  mapScale = Math.max(mapScale - 0.2, 0.5);
+  mapImg.style.transform = `scale(${mapScale})`;
+};  
+
+// Mobile zoom buttons
+document.getElementById('zoomInMobile').onclick = function() {
+  mapScale = Math.min(mapScale + 0.2, 3);
+  mapImg.style.transform = `scale(${mapScale})`;
+};
+document.getElementById('zoomOutMobile').onclick = function() {
+  mapScale = Math.max(mapScale - 0.2, 0.5);
+  mapImg.style.transform = `scale(${mapScale})`;
+};
+
+       // Disable right-click
+document.addEventListener('contextmenu', function(e) {
+  e.preventDefault();
+});
+// Disable F12, Ctrl+Shift+I, Ctrl+U
+document.addEventListener('keydown', function(e) {
+    // Disable Ctrl+U
+  if (e.ctrlKey && e.key.toLowerCase() === 'u') {
+    e.preventDefault();
+    return false;
+  }
+  // Disable F12
+  if (e.key === "F12") {
+    e.preventDefault();
+    return false;
+  }
+  // Disable Ctrl+Shift+I
+  if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'i') {
+    e.preventDefault();
+    return false;
+  }
+});
+    </script>
+</body>
+</html>
