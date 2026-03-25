@@ -120,31 +120,32 @@ export default function Faqs() {
   return (
     <div className="bg-gray-50 font-sans min-h-screen flex flex-col">
       <Navbar />
-      <div className="bg-gray-400 py-2">
-        <div className="container mx-auto px-4 flex justify-between items-center">
+      <div className="bg-emerald-50 border-b border-emerald-100 py-2.5">
+        <div className="container mx-auto px-6 flex justify-between items-center">
           <SecondaryNav backTo="/" backLabel="Go to Home" />
-          <button onClick={toggleAll} className="text-gray-800 font-bold hover:text-black flex items-center gap-2 transition-colors">
-            <i className={`fas ${allExpanded ? 'fa-compress' : 'fa-expand'}`}></i>
-            <span className="animated-underline">{allExpanded ? 'Collapse All' : 'Expand All'}</span>
+          <button onClick={toggleAll} className="text-emerald-800 font-semibold hover:text-emerald-600 flex items-center gap-2 text-sm transition-colors">
+            <i className={`fas ${allExpanded ? 'fa-compress' : 'fa-expand'} text-xs`}></i>
+            <span>{allExpanded ? 'Collapse All' : 'Expand All'}</span>
           </button>
         </div>
       </div>
 
-      <div className="container mx-auto px-4 py-6 max-w-4xl relative z-10 flex-grow">
-        <h1 className="text-2xl font-bold text-gray-700 mb-8 flex items-center gap-2">
-          <i className="fas fa-question-circle"></i> Frequently Asked Questions
-        </h1>
+      <div className="container mx-auto px-4 py-10 max-w-4xl relative z-10 flex-grow">
+        <div className="mb-8">
+          <h1 className="text-4xl font-extrabold text-emerald-900 mb-2 tracking-tight">Frequently Asked Questions</h1>
+          <div className="w-20 h-1.5 bg-gradient-to-r from-emerald-600 to-emerald-300 rounded-full"></div>
+        </div>
 
         <div className="mb-6 flex items-center gap-2">
           <div className="relative w-full">
             <input 
               type="text" 
               placeholder="Search FAQs..." 
-              className="w-full px-4 py-2 rounded border border-gray-300 focus:ring-2 focus:ring-amber-500 outline-none transition shadow-sm pr-10"
+              className="w-full px-4 py-3 rounded-lg border border-gray-200 bg-gray-50 focus:ring-2 focus:ring-emerald-500 outline-none transition shadow-sm pr-10 text-gray-700"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
-            <i className="fas fa-search absolute right-3 top-3 text-gray-400"></i>
+            <i className="fas fa-search absolute right-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
           </div>
         </div>
 

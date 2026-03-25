@@ -48,7 +48,10 @@ export default function About() {
             The Binz International Scholarship (BIS) is a beacon of excellence, fostering academic brilliance and cross-border collaboration since 2004.
           </p>
         </div>
-        <div className="absolute bottom-0 left-0 w-full h-16 bg-white" style={{ clipPath: 'polygon(0 100%, 100% 100%, 100% 0)' }}></div>
+        {/* Smooth bottom wave instead of sharp triangle */}
+        <svg className="absolute bottom-0 left-0 w-full" viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0,60 C360,0 1080,0 1440,60 L1440,60 L0,60 Z" fill="white" />
+        </svg>
       </section>
 
       {/* Main Content Containers */}
@@ -92,7 +95,7 @@ export default function About() {
         {/* Stats Section */}
         <section className="bg-emerald-900 py-16">
           <div className="container mx-auto px-4">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 divide-y md:divide-y-0 md:divide-x divide-emerald-700">
               <StatCard count={counts.applied} label="Global Applications" subLabel="Across 12+ Nations" />
               <StatCard count={counts.visits} label="Annual Portal Visits" subLabel="Trusted by Millions" />
               <StatCard count={counts.awarded} label="Scholarships Awarded" subLabel="Full-ride Success Stories" />
@@ -153,8 +156,11 @@ export default function About() {
 
         {/* Timeline Section */}
         <section className="container mx-auto px-4 py-20">
-           <h2 className="text-3xl font-bold text-emerald-900 mb-16 text-center">Historical Milestone</h2>
-           <div className="max-w-4xl mx-auto relative border-l-2 border-emerald-200 ml-4 md:ml-auto">
+           <div className="text-center mb-16">
+             <h2 className="text-4xl font-extrabold text-emerald-900 mb-4 tracking-tight">Historical Milestone</h2>
+             <div className="w-24 h-1.5 bg-gradient-to-r from-emerald-600 to-emerald-400 mx-auto rounded-full"></div>
+           </div>
+           <div className="max-w-3xl mx-auto relative border-l-2 border-emerald-200 pl-0 ml-4 md:ml-auto">
               <TimelineItem year="2004" title="Inauguration" desc="Launched in Narowal with a small fund for local brilliant students." />
               <TimelineItem year="2010" title="National Expansion" desc="Recognized as a premier body for university scholarship coordination." />
               <TimelineItem year="2018" title="Digital Transformation" desc="Introduced the online portal for seamless global applications." />
